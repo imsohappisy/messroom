@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Builds & Binaries (Uploaded to GitHub Releases)
+release/
+dist/
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.log

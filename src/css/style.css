@@ -1,0 +1,1011 @@
+:root {
+  --bg-base: #0a0a0c;
+  --bg-surface: #141417;
+  --bg-surface-elevated: #1e1e24;
+  --bg-surface-hover: #292932;
+  --bg-surface-active: #33333f;
+
+  --border-color: #2b2b36;
+  --border-focus: #2563eb;
+
+  --accent-blue: #2563eb;
+  --accent-blue-hover: #1d4ed8;
+  --accent-green: #16a34a;
+  --accent-amber: #d97706;
+  --accent-red: #dc2626;
+
+  --text-main: #ffffff;
+  --text-muted: #9e9ea7;
+  --text-dim: #656570;
+
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", Helvetica, Arial, sans-serif;
+  --titlebar-height: 44px;
+}
+
+/* 전역 사각형 초기화 (둥글기 완전 제거) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important;
+  user-select: none;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 머티리얼 심볼 아이콘 */
+.material-symbols-outlined {
+  font-size: 18px;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.material-symbols-outlined.icon-sm {
+  font-size: 16px;
+}
+
+/* 단색 브랜드 박스 (이미지 대체) */
+.brand-box {
+  width: 22px;
+  height: 22px;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 900;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ffffff;
+}
+
+.brand-box-large {
+  width: 56px;
+  height: 56px;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 900;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ffffff;
+}
+
+/* 단색 아바타 박스 (이미지 대체) */
+.avatar-box {
+  width: 36px;
+  height: 36px;
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+/* 앱 헤더 */
+.app-header {
+  height: var(--titlebar-height);
+  background-color: #0e0e11;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  -webkit-app-region: drag;
+  z-index: 100;
+}
+
+.mac-window-spacer {
+  width: 70px;
+  display: none;
+}
+
+body.platform-darwin .mac-window-spacer {
+  display: block;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.brand-tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  background-color: var(--bg-surface-elevated);
+  color: var(--accent-blue);
+  border: 1px solid var(--border-color);
+  font-weight: 700;
+}
+
+.header-status-pill {
+  -webkit-app-region: no-drag;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.header-status-pill:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--border-focus);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--text-dim);
+}
+
+.status-dot.connected {
+  background-color: var(--accent-green);
+}
+
+.status-dot.connecting {
+  background-color: var(--accent-amber);
+}
+
+.status-text {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.header-controls {
+  -webkit-app-region: no-drag;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-btn {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-btn:hover {
+  color: #ffffff;
+  background-color: var(--bg-surface-hover);
+  border-color: var(--text-dim);
+}
+
+.win-window-controls {
+  display: none;
+  gap: 2px;
+  margin-left: 6px;
+}
+
+body.platform-win32 .win-window-controls {
+  display: flex;
+}
+
+.win-btn {
+  width: 28px;
+  height: 28px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.win-btn:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--border-color);
+  color: #ffffff;
+}
+
+.win-btn.close:hover {
+  background-color: var(--accent-red);
+  color: #ffffff;
+}
+
+/* 앱 메인 컨테이너 */
+.app-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 사이드바 */
+.sidebar {
+  width: 300px;
+  min-width: 270px;
+  background-color: var(--bg-surface);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.my-profile-card {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  background-color: var(--bg-surface);
+}
+
+.my-profile-card:hover {
+  background-color: var(--bg-surface-hover);
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-bio {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.sidebar-section-title {
+  padding: 12px 14px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+}
+
+.connection-nav {
+  padding: 0 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn-inner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.connect-action-btn {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-focus);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.connect-action-btn:hover {
+  background-color: var(--accent-blue);
+}
+
+.action-btn-secondary {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.action-btn-secondary:hover {
+  background-color: var(--bg-surface-hover);
+  color: #ffffff;
+  border-color: var(--border-focus);
+}
+
+.tag-sub {
+  font-size: 10px;
+  padding: 2px 5px;
+  background-color: #0e0e11;
+  color: var(--text-dim);
+  border: 1px solid var(--border-color);
+}
+
+/* 피어 패널 */
+.active-peer-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.peer-card {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.peer-card.connected {
+  border-color: var(--accent-green);
+  border-left: 3px solid var(--accent-green);
+}
+
+.peer-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.peer-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.peer-card-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.peer-card-status {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.peer-network-metrics {
+  background-color: #0e0e11;
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+.metric-val {
+  color: var(--accent-blue);
+  font-family: monospace;
+  font-weight: 700;
+}
+
+.disconnect-btn {
+  margin-top: 4px;
+  padding: 6px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--accent-red);
+  color: var(--accent-red);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.disconnect-btn:hover {
+  background-color: var(--accent-red);
+  color: #ffffff;
+}
+
+/* 사이드바 푸터 */
+.sidebar-footer {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0e0e11;
+}
+
+.footer-btn {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+}
+
+.footer-btn:hover {
+  color: #ffffff;
+  background-color: var(--bg-surface-elevated);
+  border-color: var(--border-color);
+}
+
+/* 메인 채팅 */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-header {
+  height: 52px;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 10;
+}
+
+.chat-peer-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-peer-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.chat-peer-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-icon-btn {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-icon-btn:hover {
+  background-color: var(--bg-surface-hover);
+  color: #ffffff;
+  border-color: var(--border-focus);
+}
+
+/* 채팅 메시지 목록 */
+.chat-messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+/* 빈 상태 */
+.chat-empty-state {
+  margin: auto;
+  text-align: center;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.empty-state-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.empty-state-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.empty-quick-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.quick-btn {
+  padding: 8px 14px;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quick-btn.primary {
+  background-color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: #ffffff;
+}
+
+.quick-btn.primary:hover {
+  background-color: var(--accent-blue-hover);
+}
+
+.quick-btn:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--text-dim);
+}
+
+/* 메시지 버블 */
+.message-row {
+  display: flex;
+  gap: 10px;
+  max-width: 80%;
+  position: relative;
+}
+
+.message-row.outgoing {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.message-meta {
+  font-size: 11px;
+  color: var(--text-dim);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.message-row.outgoing .message-meta {
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  font-size: 13px;
+  line-height: 1.5;
+  user-select: text;
+  word-break: break-word;
+}
+
+.message-row.incoming .message-bubble {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border-left: 2px solid var(--border-focus);
+}
+
+.message-row.outgoing .message-bubble {
+  background-color: #171d27;
+  border-color: #273344;
+  border-right: 2px solid var(--accent-blue);
+  color: #ffffff;
+}
+
+.message-bubble code {
+  background-color: #070709;
+  padding: 2px 4px;
+  border: 1px solid var(--border-color);
+  font-family: monospace;
+  font-size: 12px;
+  color: #60a5fa;
+}
+
+.message-bubble pre {
+  background-color: #070709;
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  margin: 6px 0;
+  overflow-x: auto;
+}
+
+/* 파일 카드 */
+.file-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #0e0e11;
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  min-width: 240px;
+}
+
+.file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-size {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.file-download-btn {
+  padding: 6px 10px;
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  font-weight: 700;
+  border: none;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.file-download-btn:hover {
+  background-color: var(--accent-blue-hover);
+}
+
+.file-progress-bar-bg {
+  width: 100%;
+  height: 4px;
+  background-color: var(--bg-surface-elevated);
+  margin-top: 6px;
+}
+
+.file-progress-bar-fill {
+  height: 100%;
+  background-color: var(--accent-blue);
+  width: 0%;
+}
+
+/* 타이핑 */
+.typing-indicator-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+/* 채팅 입력창 */
+.chat-input-container {
+  padding: 12px 16px;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+}
+
+.chat-input-wrapper {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  padding: 4px 8px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.chat-input-wrapper:focus-within {
+  border-color: var(--border-focus);
+}
+
+.chat-textarea {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  resize: none;
+  max-height: 120px;
+  min-height: 28px;
+  padding: 4px 0;
+  user-select: text;
+}
+
+.chat-textarea::placeholder {
+  color: var(--text-dim);
+}
+
+.input-tool-btn {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-tool-btn:hover {
+  background-color: var(--bg-surface-hover);
+  color: #ffffff;
+}
+
+.send-btn {
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  border: 1px solid var(--accent-blue);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-btn:hover {
+  background-color: var(--accent-blue-hover);
+}
+
+/* 모달 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  width: 500px;
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0e0e11;
+}
+
+.modal-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.modal-close-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close-btn:hover {
+  color: #ffffff;
+}
+
+.modal-body {
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 6px;
+}
+
+.modal-tab-btn {
+  padding: 6px 12px;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal-tab-btn.active {
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  border-color: var(--accent-blue);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.form-input {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  padding: 8px 10px;
+  color: var(--text-main);
+  font-size: 13px;
+  outline: none;
+  user-select: text;
+}
+
+.form-input:focus {
+  border-color: var(--border-focus);
+}
+
+.form-help {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.info-box {
+  background-color: #0e0e11;
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  font-family: monospace;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-box {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  padding: 12px;
+}
+
+/* 단색 컬러 선택 그리드 */
+.color-picker-grid {
+  display: flex;
+  gap: 8px;
+}
+
+.color-box {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.color-box.selected {
+  border: 2px solid #ffffff;
+}
+
+/* 드래그 오버레이 */
+.drag-drop-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(10, 10, 12, 0.95);
+  border: 2px dashed var(--accent-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 500;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.drag-drop-overlay.active {
+  opacity: 1;
+}
+
+/* 스크롤바 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #0e0e11;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-dim);
+}

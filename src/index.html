@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>messroom - P2P 메신저</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="platform-darwin" data-theme="monochrome">
+
+  <!-- 앱 헤더 -->
+  <header class="app-header">
+    <div class="mac-window-spacer"></div>
+
+    <div class="brand-section">
+      <div class="brand-box">M</div>
+      <span class="brand-title">messroom</span>
+      <span class="brand-tag">P2P</span>
+    </div>
+
+    <!-- P2P 상태 인디케이터 -->
+    <div class="header-status-pill" id="header-status-pill" title="네트워크 상태 보기">
+      <span class="status-dot" id="header-status-dot"></span>
+      <span class="status-text" id="header-status-text">연결 대기중</span>
+    </div>
+
+    <!-- 헤더 컨트롤 -->
+    <div class="header-controls">
+      <button class="header-btn" id="btn-network-diag" title="네트워크 진단">
+        <span class="material-symbols-outlined icon-sm">dns</span>
+        <span id="header-ping-display">P2P HUD</span>
+      </button>
+      <button class="header-btn" id="btn-header-sound" title="효과음">
+        <span class="material-symbols-outlined icon-sm" id="sound-icon">volume_up</span>
+      </button>
+      <button class="header-btn" id="btn-header-profile" title="프로필 설정">
+        <span class="material-symbols-outlined icon-sm">person</span>
+        <span>프로필</span>
+      </button>
+
+      <!-- 윈도우 창 제어 (윈도우 전용) -->
+      <div class="win-window-controls" id="win-controls">
+        <button class="win-btn" id="win-btn-minimize" title="최소화">−</button>
+        <button class="win-btn" id="win-btn-maximize" title="최대화">□</button>
+        <button class="win-btn close" id="win-btn-close" title="닫기">✕</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 레이아웃 -->
+  <main class="app-container">
+
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+      <!-- 내 프로필 카드 -->
+      <div class="my-profile-card" id="my-profile-card" title="프로필 설정 열기">
+        <div class="avatar-box" id="my-avatar-box">사</div>
+        <div class="profile-info">
+          <div class="profile-name" id="my-profile-name">사용자</div>
+          <div class="profile-bio" id="my-profile-bio">온라인 (P2P 통신 대기)</div>
+        </div>
+        <span class="material-symbols-outlined icon-sm" style="color: var(--text-dim);">settings</span>
+      </div>
+
+      <!-- 연결 방식 선택 -->
+      <div class="sidebar-section-title">P2P 연결 방식</div>
+      <div class="connection-nav">
+        <button class="connect-action-btn" id="btn-open-room-modal">
+          <span class="btn-inner">
+            <span class="material-symbols-outlined icon-sm">key</span>
+            <span>룸 코드 접속</span>
+          </span>
+          <span class="tag-sub">STUN</span>
+        </button>
+        <button class="action-btn-secondary" id="btn-open-direct-modal">
+          <span class="btn-inner">
+            <span class="material-symbols-outlined icon-sm">lan</span>
+            <span>직접 IP:Port 모드</span>
+          </span>
+          <span class="tag-sub">소켓</span>
+        </button>
+        <button class="action-btn-secondary" id="btn-open-ticket-modal">
+          <span class="btn-inner">
+            <span class="material-symbols-outlined icon-sm">description</span>
+            <span>수동 티켓 교환</span>
+          </span>
+          <span class="tag-sub">오프라인</span>
+        </button>
+      </div>
+
+      <!-- 상대방 연결 상태 -->
+      <div class="sidebar-section-title">상대방 연결 상태</div>
+      <div class="active-peer-panel" id="active-peer-panel">
+        <!-- 미연결 상태 -->
+        <div class="peer-card" id="peer-idle-card">
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+            연결된 상대가 없습니다. <strong>룸 코드</strong>를 친구와 공유하거나 <strong>IP:Port</strong>로 직접 연결하세요.
+          </div>
+          <button class="action-btn-secondary" id="btn-sidebar-quick-connect" style="margin-top: 8px; justify-content: center;">
+            <span class="material-symbols-outlined icon-sm">add_link</span>
+            <span>친구와 연결하기</span>
+          </button>
+        </div>
+
+        <!-- 연결 완료 상태 -->
+        <div class="peer-card connected" id="peer-connected-card" style="display: none;">
+          <div class="peer-card-header">
+            <div class="avatar-box" id="peer-avatar-box">상</div>
+            <div class="peer-card-info">
+              <div class="peer-card-name" id="peer-display-name">상대방</div>
+              <div class="peer-card-status" id="peer-display-bio">P2P 연결됨</div>
+            </div>
+          </div>
+
+          <div class="peer-network-metrics">
+            <div class="metric-row">
+              <span>통신 방식:</span>
+              <span class="metric-val" id="metric-channel-type">WebRTC P2P</span>
+            </div>
+            <div class="metric-row">
+              <span>상대방 IP:</span>
+              <span class="metric-val" id="metric-peer-ip">-</span>
+            </div>
+            <div class="metric-row">
+              <span>지연시간 (RTT):</span>
+              <span class="metric-val" id="metric-latency">-</span>
+            </div>
+            <div class="metric-row">
+              <span>보안:</span>
+              <span class="metric-val" style="color: var(--accent-green);">DTLS 암호화</span>
+            </div>
+          </div>
+
+          <button class="disconnect-btn" id="btn-disconnect-peer">
+            <span class="material-symbols-outlined icon-sm">close</span>
+            <span>연결 종료</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 사이드바 푸터 -->
+      <footer class="sidebar-footer">
+        <button class="footer-btn" id="btn-clear-chat" title="채팅 내역 지우기">
+          <span class="material-symbols-outlined icon-sm">delete</span>
+          <span>내역 비우기</span>
+        </button>
+        <button class="footer-btn" id="btn-export-chat" title="텍스트 파일로 내보내기">
+          <span class="material-symbols-outlined icon-sm">save_alt</span>
+          <span>내보내기</span>
+        </button>
+      </footer>
+    </aside>
+
+    <!-- 채팅 본문 영역 -->
+    <section class="chat-main">
+      <!-- 채팅 헤더 -->
+      <div class="chat-header">
+        <div class="chat-peer-profile">
+          <div class="avatar-box" id="chat-header-avatar-box">상</div>
+          <div>
+            <div class="chat-peer-title" id="chat-header-name">messroom 피어</div>
+            <div class="chat-peer-subtitle" id="chat-header-subtitle">
+              <span class="status-dot" id="chat-header-dot"></span>
+              <span id="chat-header-status-desc">상대방 연결 대기중...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-actions">
+          <button class="action-icon-btn" id="btn-chat-call" title="P2P 음성 통화">
+            <span class="material-symbols-outlined">call</span>
+          </button>
+          <button class="action-icon-btn" id="btn-chat-network" title="네트워크 및 IP 정보">
+            <span class="material-symbols-outlined">analytics</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 메시지 목록 -->
+      <div class="chat-messages-container" id="chat-messages">
+        <!-- 초기 대기 화면 -->
+        <div class="chat-empty-state" id="chat-empty-state">
+          <div class="brand-box-large">M</div>
+          <h2 class="empty-state-title">messroom P2P 메신저</h2>
+          <p class="empty-state-desc">
+            다른 IP 대역의 사용자와 직접 연결되는 완전 P2P 메신저입니다.<br>
+            메시지와 파일 전송은 중계 서버 없이 피어 간에 직접 전송됩니다.
+          </p>
+          <div class="empty-quick-buttons">
+            <button class="quick-btn primary" id="btn-quick-create-room">룸 코드 생성</button>
+            <button class="quick-btn" id="btn-quick-join-room">룸 코드 접속</button>
+            <button class="quick-btn" id="btn-quick-direct-ip">직접 IP 연결</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 타이핑 표시 -->
+      <div class="typing-indicator-row" id="typing-indicator" style="display: none;">
+        <span class="material-symbols-outlined icon-sm">edit_note</span>
+        <span id="typing-text">상대방이 입력중입니다...</span>
+      </div>
+
+      <!-- 채팅 입력창 -->
+      <div class="chat-input-container">
+        <div class="chat-input-wrapper">
+          <button class="input-tool-btn" id="btn-attach-file" title="파일 첨부">
+            <span class="material-symbols-outlined">attach_file</span>
+          </button>
+          <input type="file" id="file-picker-input" style="display: none;">
+          
+          <textarea
+            class="chat-textarea"
+            id="chat-input"
+            placeholder="메시지를 입력하세요 (Enter: 전송, Shift+Enter: 줄바꿈)"
+            rows="1"
+          ></textarea>
+
+          <button class="send-btn" id="btn-send-message" title="전송">
+            <span class="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 파일 드래그 앤 드롭 오버레이 -->
+      <div class="drag-drop-overlay" id="drag-overlay">
+        <span class="material-symbols-outlined" style="font-size: 48px; color: var(--accent-blue);">upload_file</span>
+        <div style="font-size: 15px; font-weight: 700; color: #ffffff;">파일을 여기에 놓으면 즉시 P2P로 전송됩니다</div>
+        <div style="font-size: 12px; color: var(--text-muted);">용량 제한 없음 - 청크 단위 직접 스트리밍</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= 모달 창 ================= -->
+
+  <!-- 연결 모달 -->
+  <div class="modal-overlay" id="modal-connect">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">P2P 연결 설정</div>
+        <button class="modal-close-btn" data-close-modal="modal-connect">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-tabs">
+          <button class="modal-tab-btn active" data-tab="tab-room">룸 코드 (STUN)</button>
+          <button class="modal-tab-btn" data-tab="tab-direct">직접 IP:Port</button>
+          <button class="modal-tab-btn" data-tab="tab-ticket">수동 티켓</button>
+        </div>
+
+        <!-- 탭 1: 룸 코드 -->
+        <div class="tab-pane active" id="tab-room">
+          <div class="form-group">
+            <label class="form-label">룸 코드 입력</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" class="form-input" id="input-room-code" placeholder="예: MESS-7721" style="flex: 1; text-transform: uppercase;">
+              <button class="action-btn-secondary" id="btn-gen-room-code" style="width: auto;">코드 자동생성</button>
+            </div>
+            <span class="form-help">동일한 룸 코드를 입력하면 STUN 홀펀칭을 통해 두 사용자의 컴퓨터가 직접 연결됩니다.</span>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <button class="quick-btn primary" id="btn-action-create-room" style="flex: 1;">방 만들기 (호스트)</button>
+            <button class="quick-btn" id="btn-action-join-room" style="flex: 1;">방 참가하기 (클라이언트)</button>
+          </div>
+        </div>
+
+        <!-- 탭 2: 직접 IP:Port -->
+        <div class="tab-pane" id="tab-direct" style="display: none;">
+          <div class="form-group">
+            <label class="form-label">내 IP 주소 정보</label>
+            <div class="info-box">
+              <div>공인 IP: <span id="diag-my-public-ip" style="color: var(--accent-blue); font-weight: 700;">-</span></div>
+              <div>로컬 IP: <span id="diag-my-local-ip" style="color: var(--text-muted);">-</span></div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">
+            <!-- 서버 호스팅 -->
+            <div class="card-box">
+              <div style="font-weight: 700; font-size: 13px; margin-bottom: 8px;">직접 서버 열기 (호스트)</div>
+              <div class="form-group">
+                <label class="form-label">포트 번호</label>
+                <input type="number" class="form-input" id="input-host-port" value="48800">
+              </div>
+              <button class="quick-btn primary" id="btn-start-direct-server" style="width: 100%; margin-top: 10px;">서버 시작</button>
+            </div>
+
+            <!-- 클라이언트 접속 -->
+            <div class="card-box">
+              <div style="font-weight: 700; font-size: 13px; margin-bottom: 8px;">친구에게 접속 (참가)</div>
+              <div class="form-group">
+                <label class="form-label">상대방 공인 IP</label>
+                <input type="text" class="form-input" id="input-target-ip" placeholder="예: 211.x.x.x">
+              </div>
+              <div class="form-group" style="margin-top: 6px;">
+                <label class="form-label">포트 번호</label>
+                <input type="number" class="form-input" id="input-target-port" value="48800">
+              </div>
+              <button class="quick-btn" id="btn-connect-direct-socket" style="width: 100%; margin-top: 10px;">직접 연결</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 탭 3: 수동 티켓 -->
+        <div class="tab-pane" id="tab-ticket" style="display: none;">
+          <div class="form-group">
+            <label class="form-label">연결 티켓 페이로드 (Base64)</label>
+            <textarea class="form-input" id="ticket-text-area" rows="4" placeholder="Offer 또는 Answer 티켓 텍스트를 붙여넣으세요..."></textarea>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <button class="action-btn-secondary" id="btn-gen-offer-ticket" style="flex: 1;">1. Offer 티켓 생성</button>
+            <button class="action-btn-secondary" id="btn-accept-offer-ticket" style="flex: 1;">2. Answer 티켓 생성</button>
+            <button class="quick-btn primary" id="btn-apply-answer-ticket" style="flex: 1;">3. Answer 적용</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프로필 및 계정 설정 모달 -->
+  <div class="modal-overlay" id="modal-profile">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">프로필 및 계정 설정</div>
+        <button class="modal-close-btn" data-close-modal="modal-profile">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- 닉네임 입력 -->
+        <div class="form-group">
+          <label class="form-label">닉네임 / 표시 이름</label>
+          <input type="text" class="form-input" id="profile-name-input" placeholder="닉네임 입력">
+        </div>
+
+        <!-- 상태 메시지 -->
+        <div class="form-group">
+          <label class="form-label">상태 메시지</label>
+          <input type="text" class="form-input" id="profile-bio-input" placeholder="예: 작업중, 대기중, P2P 활성">
+        </div>
+
+        <!-- 아바타 색상 선택 (단색) -->
+        <div class="form-group">
+          <label class="form-label">아바타 박스 색상 (단색)</label>
+          <div class="color-picker-grid" id="color-picker-container">
+            <div class="color-box selected" data-color="#2563eb" style="background-color: #2563eb;"></div>
+            <div class="color-box" data-color="#16a34a" style="background-color: #16a34a;"></div>
+            <div class="color-box" data-color="#dc2626" style="background-color: #dc2626;"></div>
+            <div class="color-box" data-color="#d97706" style="background-color: #d97706;"></div>
+            <div class="color-box" data-color="#4f46e5" style="background-color: #4f46e5;"></div>
+            <div class="color-box" data-color="#52525b" style="background-color: #52525b;"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-top: 10px;">
+          <button class="quick-btn primary" id="btn-save-profile" style="flex: 1;">프로필 저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 네트워크 및 IP 진단 HUD 모달 -->
+  <div class="modal-overlay" id="modal-network">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">네트워크 및 통신 진단 HUD</div>
+        <button class="modal-close-btn" data-close-modal="modal-network">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="info-box">
+          <div class="metric-row">
+            <span>연결 상태:</span>
+            <span class="metric-val" id="hud-conn-state">연결 대기</span>
+          </div>
+          <div class="metric-row">
+            <span>통신 프로토콜:</span>
+            <span class="metric-val" id="hud-conn-mode">WebRTC DataChannel</span>
+          </div>
+          <div class="metric-row">
+            <span>내 로컬 IP:</span>
+            <span class="metric-val" id="hud-my-local-ip">-</span>
+          </div>
+          <div class="metric-row">
+            <span>내 공인 IP:</span>
+            <span class="metric-val" id="hud-my-public-ip">-</span>
+          </div>
+          <div class="metric-row">
+            <span>상대방 IP:</span>
+            <span class="metric-val" id="hud-peer-ip" style="color: var(--accent-blue); font-weight: 700;">-</span>
+          </div>
+          <div class="metric-row">
+            <span>상대방 포트:</span>
+            <span class="metric-val" id="hud-peer-port">-</span>
+          </div>
+          <div class="metric-row">
+            <span>후보 유형:</span>
+            <span class="metric-val" id="hud-candidate-type">-</span>
+          </div>
+          <div class="metric-row">
+            <span>왕복 지연시간 (Ping):</span>
+            <span class="metric-val" id="hud-latency" style="color: var(--accent-green);">-</span>
+          </div>
+          <div class="metric-row">
+            <span>보안 암호화:</span>
+            <span class="metric-val" style="color: var(--accent-green);">DTLS-SRTP 256-bit</span>
+          </div>
+        </div>
+
+        <button class="quick-btn" id="btn-refresh-network-info" style="align-self: flex-end;">IP 재스캔</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스크립트 로드 -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
