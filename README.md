@@ -36,19 +36,17 @@
 
 ---
 
-## 빌드 및 실행 파일 위치
+## 다운로드 및 실행 파일 (GitHub Releases)
 
-### 🍎 Mac 버전
-- **설치용 DMG**: `release/Messroom-1.0.0.dmg`
-- **ZIP 압축본**: `release/Messroom-1.0.0-mac.zip`
-- **실행 앱 번들**: `release/mac/Messroom.app`
-- **더블클릭 간편 실행**: `./start-mac.command`
+[GitHub Releases 바로가기 (v1.0.0)](https://github.com/imsohappisy/messroom/releases/tag/v1.0.0)
 
 ### 🪟 Windows 버전
-- **단독 포터블 실행 파일**: `release/Messroom 1.0.0.exe`
-- **ZIP 압축 배포본**: `release/Messroom-1.0.0-win.zip`
-- **실행 폴더**: `release/win-unpacked/Messroom.exe`
-- **더블클릭 간편 실행**: `start-windows.bat`
+- **단독 포터블 실행 파일**: [Messroom.exe 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom.exe) (설치 없이 더블클릭 실행)
+- **전체 압축본**: [Messroom-1.0.0-win.zip 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom-1.0.0-win.zip)
+
+### 🍎 Mac 버전
+- **설치용 DMG**: [Messroom-1.0.0.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom-1.0.0.dmg)
+- **ZIP 압축본**: [Messroom-1.0.0-mac.zip 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom-1.0.0-mac.zip)
 
 ---
 
