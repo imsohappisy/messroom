@@ -2,7 +2,15 @@
 node_modules/
 package-lock.json
 
-# Builds & Binaries (Uploaded to GitHub Releases)
+# Local source code (kept local)
+src/
+electron/
+assets/
+package.json
+start-mac.command
+start-windows.bat
+
+# Build directory
 release/
 dist/
 
