@@ -5,7 +5,8 @@
 ## 다운로드
 
 - **Windows**: [Messroom.exe 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom.exe)
-- **macOS**: [Messroom-1.0.0.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom-1.0.0.dmg)
+- **macOS (애플 실리콘 M1/M2/M3/M4)**: [Messroom-1.0.0-arm64.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom-1.0.0-arm64.dmg)
+- **macOS (Intel)**: [Messroom-1.0.0.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom-1.0.0.dmg)
 
 ---
 
@@ -16,7 +17,7 @@
 2. 다운로드한 파일을 더블 클릭하여 바로 실행합니다. (무설치 포터블)
 
 ### macOS
-1. `Messroom-1.0.0.dmg`를 다운로드하여 엽니다.
+1. 본인 Mac에 맞는 `.dmg`를 다운로드하여 엽니다.
 2. `Messroom` 아이콘을 `Applications`(응용 프로그램) 폴더로 드래그합니다.
 3. 앱을 실행합니다.
    *(최초 실행 시 보안 경고가 뜨는 경우: 앱 아이콘 우클릭 -> [열기] 클릭)*
