@@ -4,9 +4,9 @@
 
 ## 다운로드
 
-- **Windows**: [Messroom.exe 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom.exe)
-- **macOS (애플 실리콘 M1/M2/M3/M4)**: [Messroom-1.0.0-arm64.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom-1.0.0-arm64.dmg)
-- **macOS (Intel)**: [Messroom-1.0.0.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.0.0/Messroom-1.0.0.dmg)
+- **Windows**: [Messroom.exe 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.1.0/Messroom.exe)
+- **macOS (애플 실리콘 M1/M2/M3/M4)**: [Messroom-1.1.0-arm64.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.1.0/Messroom-1.1.0-arm64.dmg)
+- **macOS (Intel)**: [Messroom-1.1.0.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.1.0/Messroom-1.1.0.dmg)
 
 ---
 
@@ -28,5 +28,6 @@
 
 1. 양쪽 컴퓨터에서 messroom을 실행합니다.
 2. **룸 코드 접속**을 누르고 동일한 코드(예: `MESS-7721`)를 입력합니다.
+   - 비밀번호가 필요한 비공개 방의 경우 **방 비밀번호**를 함께 설정/입력합니다.
    - 한 명은 **방 만들기**, 상대방은 **방 참가하기** 클릭
-3. P2P로 직접 연결되면 채팅 및 파일 전송이 가능합니다.
+3. P2P로 직접 연결되면 채팅 및 파일 전송이 가능합니다. (핫스팟이나 대칭형 NAT 환경에서도 하이브리드 P2P 릴레이를 통해 자동 우회 연결됩니다)
