@@ -4,9 +4,9 @@
 
 ## 다운로드
 
-- **Windows**: [Messroom.exe 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.1.0/Messroom.exe)
-- **macOS (애플 실리콘 M1/M2/M3/M4)**: [Messroom-1.1.0-arm64.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.1.0/Messroom-1.1.0-arm64.dmg)
-- **macOS (Intel)**: [Messroom-1.1.0.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.1.0/Messroom-1.1.0.dmg)
+- **Windows**: [Messroom.exe 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.2.0/Messroom.exe)
+- **macOS (애플 실리콘 M1/M2/M3/M4)**: [Messroom-1.2.0-arm64.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.2.0/Messroom-1.2.0-arm64.dmg)
+- **macOS (Intel)**: [Messroom-1.2.0.dmg 다운로드](https://github.com/imsohappisy/messroom/releases/download/v1.2.0/Messroom-1.2.0.dmg)
 
 ---
 
@@ -31,3 +31,4 @@
    - 비밀번호가 필요한 비공개 방의 경우 **방 비밀번호**를 함께 설정/입력합니다.
    - 한 명은 **방 만들기**, 상대방은 **방 참가하기** 클릭
 3. P2P로 직접 연결되면 채팅 및 파일 전송이 가능합니다. (핫스팟이나 대칭형 NAT 환경에서도 하이브리드 P2P 릴레이를 통해 자동 우회 연결됩니다)
+4. 상단 **커스텀 CSS** 버튼을 눌러 CSS 코드를 자유롭게 작성하고 나만의 테마(사이버 네온, 매트릭스 터미널, 드라큘라, 노르딕 블루 등)를 실시간으로 적용할 수 있습니다. (Ctrl+S / Cmd+S 즉시 반영)
